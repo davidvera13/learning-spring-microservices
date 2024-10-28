@@ -1,0 +1,1711 @@
+{
+	"info": {
+		"_postman_id": "07baf649-321b-4aa0-b3d8-3e085d183cb7",
+		"name": "SPRING MICROSERVICES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5840420"
+	},
+	"item": [
+		{
+			"name": "Master Microservices with SpringBoot,Docker,Kubernetes",
+			"item": [
+				{
+					"name": "CHALLENGE01 - CREATING WEBSERVICES",
+					"item": [
+						{
+							"name": "accounts",
+							"item": [
+								{
+									"name": "REMOVED sayHello",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/hello",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"hello"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "sayHello",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api/hello",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"hello"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Content-Length",
+													"value": "11"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 27 Oct 2024 20:05:38 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "Hello world"
+										}
+									]
+								},
+								{
+									"name": "create customer account",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"David\",\r\n    \"email\": \"david.vera@9online.fr\",\r\n    \"mobileNumber\": \"0102030405\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "ok",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"David\",\r\n    \"email\": \"david.vera@9online.fr\",\r\n    \"mobileNumber\": \"0102030405\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 22:50:18 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"201\",\n    \"message\": \"Account created successfully\"\n}"
+										},
+										{
+											"name": "ko",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"David\",\r\n    \"email\": \"david.vera@9online.fr\",\r\n    \"mobileNumber\": \"0102030405\"\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 22:50:54 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"BAD_REQUEST\",\n    \"errorMessage\": \"Customer already registered with given mobileNumber 0102030405\",\n    \"errorTime\": \"2024-09-19T00:50:54.3428236\"\n}"
+										}
+									]
+								},
+								{
+									"name": "get customer account by phone number",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api?mobileNumber=0102030405",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030405"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "ok",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:28:48 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"name\": \"David\",\n    \"email\": \"david.vera@9online.fr\",\n    \"mobileNumber\": \"0102030405\",\n    \"accountDto\": {\n        \"accountNumber\": 1679821432,\n        \"accountType\": \"Savings\",\n        \"branchAddress\": \"123 Main Street, New York\",\n        \"mobileNumber\": null\n    }\n}"
+										},
+										{
+											"name": "ko",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:29:10 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"NOT_FOUND\",\n    \"errorMessage\": \"Customer not found with the given input data mobileNumber : '0102030406'\",\n    \"errorTime\": \"2024-09-19T01:29:10.9098689\"\n}"
+										}
+									]
+								},
+								{
+									"name": "update account",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"David2\",\r\n    \"email\": \"david2.vera@9online.fr\",\r\n    \"mobileNumber\": \"0102030406\",\r\n    \"accountDto\": {\r\n        \"accountNumber\": 1325975827,\r\n        \"accountType\": \"Current\",\r\n        \"branchAddress\": \"125 Main Street, New York\",\r\n        \"mobileNumber\": null\r\n    }\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "ok",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"David2\",\r\n    \"email\": \"david2.vera@9online.fr\",\r\n    \"mobileNumber\": \"0102030406\",\r\n    \"accountDto\": {\r\n        \"accountNumber\": 1760546312,\r\n        \"accountType\": \"Current\",\r\n        \"branchAddress\": \"125 Main Street, New York\",\r\n        \"mobileNumber\": null\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:42:12 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"200\",\n    \"message\": \"Request processed successfully\"\n}"
+										},
+										{
+											"name": "ko",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"name\": \"David2\",\r\n    \"email\": \"david2.vera@9online.fr\",\r\n    \"mobileNumber\": \"0102030406\",\r\n    \"accountDto\": {\r\n        \"accountNumber\": 1760546322,\r\n        \"accountType\": \"Current\",\r\n        \"branchAddress\": \"125 Main Street, New York\",\r\n        \"mobileNumber\": null\r\n    }\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8080/api",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:43:16 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"NOT_FOUND\",\n    \"errorMessage\": \"Account not found with the given input data AccountNumber : '1760546322'\",\n    \"errorTime\": \"2024-09-19T01:43:16.512267\"\n}"
+										}
+									]
+								},
+								{
+									"name": "get customer account by phone number Copy",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030406"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "ok",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:28:48 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"name\": \"David\",\n    \"email\": \"david.vera@9online.fr\",\n    \"mobileNumber\": \"0102030405\",\n    \"accountDto\": {\n        \"accountNumber\": 1679821432,\n        \"accountType\": \"Savings\",\n        \"branchAddress\": \"123 Main Street, New York\",\n        \"mobileNumber\": null\n    }\n}"
+										},
+										{
+											"name": "ko",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:29:10 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"NOT_FOUND\",\n    \"errorMessage\": \"Customer not found with the given input data mobileNumber : '0102030406'\",\n    \"errorTime\": \"2024-09-19T01:29:10.9098689\"\n}"
+										},
+										{
+											"name": "after update",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:42:22 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"name\": \"David2\",\n    \"email\": \"david2.vera@9online.fr\",\n    \"mobileNumber\": \"0102030406\",\n    \"accountDto\": {\n        \"accountNumber\": 1760546312,\n        \"accountType\": \"Current\",\n        \"branchAddress\": \"125 Main Street, New York\",\n        \"mobileNumber\": null\n    }\n}"
+										}
+									]
+								},
+								{
+									"name": "delete customer account",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030406"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "ok",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:55:41 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"200\",\n    \"message\": \"Request processed successfully\"\n}"
+										},
+										{
+											"name": "ko",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:55:56 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"NOT_FOUND\",\n    \"errorMessage\": \"Customer not found with the given input data mobileNumber : '0102030405'\",\n    \"errorTime\": \"2024-09-19T01:55:56.5456127\"\n}"
+										}
+									]
+								},
+								{
+									"name": "get customer account by phone number after delete",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030406"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "ok",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:28:48 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"name\": \"David\",\n    \"email\": \"david.vera@9online.fr\",\n    \"mobileNumber\": \"0102030405\",\n    \"accountDto\": {\n        \"accountNumber\": 1679821432,\n        \"accountType\": \"Savings\",\n        \"branchAddress\": \"123 Main Street, New York\",\n        \"mobileNumber\": null\n    }\n}"
+										},
+										{
+											"name": "ko",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:29:10 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"NOT_FOUND\",\n    \"errorMessage\": \"Customer not found with the given input data mobileNumber : '0102030406'\",\n    \"errorTime\": \"2024-09-19T01:29:10.9098689\"\n}"
+										},
+										{
+											"name": "after update",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8080/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Wed, 18 Sep 2024 23:42:22 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"name\": \"David2\",\n    \"email\": \"david2.vera@9online.fr\",\n    \"mobileNumber\": \"0102030406\",\n    \"accountDto\": {\n        \"accountNumber\": 1760546312,\n        \"accountType\": \"Current\",\n        \"branchAddress\": \"125 Main Street, New York\",\n        \"mobileNumber\": null\n    }\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "loans",
+							"item": [
+								{
+									"name": "create loan",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api?mobileNumber=0102030405",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030405"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8090/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8090",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 15:36:30 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"201\",\n    \"statusMsg\": \"Loan created successfully\"\n}"
+										},
+										{
+											"name": "KO",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8090/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8090",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 15:38:26 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "close"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"BAD_REQUEST\",\n    \"errorMessage\": \"Loan already registered with given mobileNumber 0102030405\",\n    \"errorTime\": \"2024-09-22T17:38:26.5287054\"\n}"
+										}
+									]
+								},
+								{
+									"name": "get loan",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api?mobileNumber=0102030405",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030405"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8090/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8090",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 15:38:11 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"mobileNumber\": \"0102030405\",\n    \"loanNumber\": \"100729996576\",\n    \"loanType\": \"Vahicle Loan\",\n    \"totalLoan\": 10000,\n    \"amountPaid\": 900,\n    \"outstandingAmount\": 9100\n}"
+										},
+										{
+											"name": "KO",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8090/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8090",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 15:38:58 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"NOT_FOUND\",\n    \"errorMessage\": \"Loan not found with the given input data mobileNumber : '0102030406'\",\n    \"errorTime\": \"2024-09-22T17:38:58.7243913\"\n}"
+										}
+									]
+								},
+								{
+									"name": "update loan",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mobileNumber\": \"0102030406\",\r\n    \"loanNumber\": \"100443143564\",\r\n    \"loanType\": \"Vahicle Loan\",\r\n    \"totalLoan\": 10000,\r\n    \"amountPaid\": 900,\r\n    \"outstandingAmount\": 9100\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8090/api",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"mobileNumber\": \"0102030405\",\r\n    \"loanNumber\": \"100729996576\",\r\n    \"loanType\": \"Vahicle Loan\",\r\n    \"totalLoan\": 10000,\r\n    \"amountPaid\": 900,\r\n    \"outstandingAmount\": 9100\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:8090/api",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8090",
+													"path": [
+														"api"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 15:38:05 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"200\",\n    \"statusMsg\": \"Request processed successfully\"\n}"
+										}
+									]
+								},
+								{
+									"name": "delete loan",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8090/api?mobileNumber=0102030405",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030405"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8090/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8090",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 15:40:54 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"200\",\n    \"statusMsg\": \"Request processed successfully\"\n}"
+										},
+										{
+											"name": "KO",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:8090/api?mobileNumber=0102030406",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8090",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030406"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 15:41:46 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"apiPath\": \"uri=/api\",\n    \"errorCode\": \"NOT_FOUND\",\n    \"errorMessage\": \"Loan not found with the given input data mobileNumber : '0102030406'\",\n    \"errorTime\": \"2024-09-22T17:41:46.5664182\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "cards",
+							"item": [
+								{
+									"name": "create card",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9000/api?mobileNumber=0102030405",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9000",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030405"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:9000/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "9000",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 16:04:05 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"201\",\n    \"statusMsg\": \"Card created successfully\"\n}"
+										}
+									]
+								},
+								{
+									"name": "get card",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9000/api?mobileNumber=0102030405",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9000",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030405"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "http://localhost:9000/api?mobileNumber=0102030405",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "9000",
+													"path": [
+														"api"
+													],
+													"query": [
+														{
+															"key": "mobileNumber",
+															"value": "0102030405"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 16:08:25 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"mobileNumber\": \"0102030405\",\n    \"cardNumber\": \"100271691883\",\n    \"cardType\": \"Credit Card\",\n    \"totalLimit\": 100000,\n    \"amountUsed\": 25000,\n    \"availableAmount\": 75000\n}"
+										}
+									]
+								},
+								{
+									"name": "update card",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mobileNumber\": \"0102030405\",\r\n    \"cardNumber\": \"100187853186\",\r\n    \"cardType\": \"Credit Card\",\r\n    \"totalLimit\": 100000,\r\n    \"amountUsed\": 25000,\r\n    \"availableAmount\": 75000\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:9000/api",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9000",
+											"path": [
+												"api"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n    \"mobileNumber\": \"0102030405\",\r\n    \"cardNumber\": \"100271691883\",\r\n    \"cardType\": \"Credit Card\",\r\n    \"totalLimit\": 100000,\r\n    \"amountUsed\": 25000,\r\n    \"availableAmount\": 75000\r\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "http://localhost:9000/api",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "9000",
+													"path": [
+														"api"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Transfer-Encoding",
+													"value": "chunked"
+												},
+												{
+													"key": "Date",
+													"value": "Sun, 22 Sep 2024 16:07:57 GMT"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=60"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"statusCode\": \"200\",\n    \"statusMsg\": \"Request processed successfully\"\n}"
+										}
+									]
+								},
+								{
+									"name": "delete card",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:9000/api?mobileNumber=0102030405",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9000",
+											"path": [
+												"api"
+											],
+											"query": [
+												{
+													"key": "mobileNumber",
+													"value": "0102030405"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
