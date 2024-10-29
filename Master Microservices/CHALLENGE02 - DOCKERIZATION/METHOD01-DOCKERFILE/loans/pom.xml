@@ -16,6 +16,7 @@
 
     <name>loans</name>
     <description>loans</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>21</java.version>
@@ -69,6 +70,7 @@
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
