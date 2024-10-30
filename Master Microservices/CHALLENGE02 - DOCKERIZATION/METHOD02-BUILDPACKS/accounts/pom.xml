@@ -12,7 +12,7 @@
 
     <groupId>io.warehouse13</groupId>
     <artifactId>accounts</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>accounts</name>
@@ -76,7 +76,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>davidvera/${project.artifactId}:buildpacks-latest</name>
+                        <name>davidvera/${project.artifactId}:${project.version}</name>
                     </image>
                     <excludes>
                         <exclude>
