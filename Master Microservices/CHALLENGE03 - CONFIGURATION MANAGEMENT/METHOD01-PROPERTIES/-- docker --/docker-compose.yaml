@@ -1,0 +1,45 @@
+name: "microservices"
+
+services:
+  account-ws:
+    image: "davidvera/accounts:0.0.3-SNAPSHOT"
+    container_name: "account-ws"
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          # max memory used by application
+          memory: 700m
+    networks:
+      - bankAppNetwork
+
+  cards-ws:
+    image: "davidvera/cards:0.0.3-SNAPSHOT"
+    container_name: "cards-ws"
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          # max memory used by application
+          memory: 700m
+    networks:
+      - bankAppNetwork
+
+  loans-ws:
+    image: "davidvera/loans:0.0.3-SNAPSHOT"
+    container_name: "loans-ws"
+    ports:
+      - "8090:8090"
+    deploy:
+      resources:
+        limits:
+          # max memory used by application
+          memory: 700m
+    networks:
+      - bankAppNetwork
+
+networks:
+  bankAppNetwork:
+    driver: "bridge"
