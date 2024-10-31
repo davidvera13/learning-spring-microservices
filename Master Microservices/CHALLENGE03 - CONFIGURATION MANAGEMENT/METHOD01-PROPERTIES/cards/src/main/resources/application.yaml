@@ -1,6 +1,12 @@
 server:
   port: 9000
 spring:
+  profiles:
+    active: "qa"
+  config:
+    import:
+      - "classpath:application_qa.yaml"
+      - "classpath:application_prod.yaml"
   application:
     name: cards
   # managing datasource ...
@@ -16,3 +22,17 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+# data to read with @Value
+build:
+  version: 0.0.3-cards
+
+# prefix
+cards:
+  message: 'Welcome to our localhost DEFAULT cards management application'
+  contactDetails:
+    name: 'John Steed - Tech lead'
+    email: 'steed@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

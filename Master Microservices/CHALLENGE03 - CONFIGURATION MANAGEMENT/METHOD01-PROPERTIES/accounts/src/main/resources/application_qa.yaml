@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: 'qa'
+build:
+  version: 0.0.3-accounts-QA
+# prefix
+accounts:
+  message: 'Welcome to our localhost QA accounts management application'
+  contactDetails:
+    name: 'Gandalf - QA Lead'
+    email: 'gandalf@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

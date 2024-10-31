@@ -1,6 +1,12 @@
 server:
   port: 8090
 spring:
+  profiles:
+    active: "default"
+  config:
+    import:
+      - "classpath:application_qa.yaml"
+      - "classpath:application_prod.yaml"
   application:
     name: loans
   datasource:
@@ -17,3 +23,16 @@ spring:
       ddl-auto: update
     show-sql: true
 
+# data to read with @Value
+build:
+  version: 0.0.3-loans
+
+# prefix
+loans:
+  message: 'Welcome to our localhost DEFAULT loans management application'
+  contactDetails:
+    name: 'John Steed - CTO'
+    email: 'john@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

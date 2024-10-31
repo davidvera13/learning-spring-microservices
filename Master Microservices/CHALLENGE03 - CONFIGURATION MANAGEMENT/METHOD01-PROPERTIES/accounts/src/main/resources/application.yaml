@@ -1,6 +1,12 @@
 server:
   port: 8080
 spring:
+  profiles:
+    active: "prod"
+  config:
+    import:
+      - "classpath:application_qa.yaml"
+      - "classpath:application_prod.yaml"
   application:
     name: accounts
   # managing datasource ...
@@ -16,3 +22,18 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+
+# data to read with @Value
+build:
+  version: 0.0.3-accounts
+
+# prefix
+accounts:
+  message: 'Welcome to our localhost DEFAULT accounts management application'
+  contactDetails:
+    name: 'John Steed - Tech lead'
+    email: 'steed@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406
