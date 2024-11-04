@@ -6,15 +6,11 @@ spring:
   profiles:
     active: 'qa'
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ''
-  h2:
-    console:
-      enabled: true
+    url: jdbc:mysql://localhost:3306/db_loans?createDatabaseIfNotExist=true&useSSL=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -28,7 +24,7 @@ spring:
 
 # data to read with @Value
 build:
-  version: 0.0.3-loans
+  version: 0.0.4-loans
 
 # prefix
 loans:
