@@ -1,0 +1,11 @@
+build:
+  version: 0.0.3-loans-GITHUB-QA-REMOTE-UPDATED-AGAIN-MONITORED
+
+loans:
+  message: 'Welcome to our REMOTE -GITHUB- QA loans management application UPDATED-AGAIN-MONITORED'
+  contactDetails:
+    name: 'Gandalf - QA Lead'
+    email: 'gandalf@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

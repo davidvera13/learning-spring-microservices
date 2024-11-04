@@ -1,0 +1,11 @@
+build:
+  version: 0.0.3-loans-QA-REMOTE
+
+loans:
+  message: 'Welcome to our REMOTE QA loans management application'
+  contactDetails:
+    name: 'Gandalf - QA Lead'
+    email: 'gandalf@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

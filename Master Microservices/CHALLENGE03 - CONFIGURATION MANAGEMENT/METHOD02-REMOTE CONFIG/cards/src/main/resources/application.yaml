@@ -3,9 +3,11 @@ server:
 spring:
   application:
     name: cards
-  # managing datasource ...
+  profiles:
+    active: 'default'
   datasource:
     url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
     username: sa
     password:
   h2:
@@ -16,3 +18,31 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  config:
+    import: 'optional:configserver:http://localhost:8071'
+  rabbitmq:
+    password: guest
+    username: guest
+    host: localhost
+    port: 5672
+
+# data to read with @Value
+build:
+  version: 0.0.3-cards
+
+# prefix
+cards:
+  message: 'Welcome to our localhost DEFAULT cards management application'
+  contactDetails:
+    name: 'John Steed - Tech lead'
+    email: 'steed@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406
+
+# enabling all endpoints in actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

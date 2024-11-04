@@ -1,5 +1,10 @@
 @echo off
 
+cd "./configserver"
+call mvn clean
+call docker build . -t davidvera/configserver:0.0.3-SNAPSHOT
+cd ".."
+
 cd "./accounts"
 call mvn clean
 call docker build . -t davidvera/accounts:0.0.3-SNAPSHOT
@@ -30,6 +35,6 @@ cd ".."
 @REM call docker run -d -p 9000:9000 davidvera/cards:0.0.3-SNAPSHOT
 @REM call docker run -d -p 8090:8090 davidvera/loans:0.0.3-SNAPSHOT
 
-cd "./-- docker --"
+cd "./-- docker --/services/default"
 call docker compose up -d
-cd ".."
+cd "../../.."

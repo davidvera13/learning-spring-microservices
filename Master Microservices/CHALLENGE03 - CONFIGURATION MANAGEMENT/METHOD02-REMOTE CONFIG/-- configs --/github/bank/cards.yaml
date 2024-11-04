@@ -1,0 +1,11 @@
+build:
+  version: 0.0.3-cards-GITHUB-REMOTE-UPDATED-AGAIN-MONITORED-UPDATED!
+
+cards:
+  message: 'Welcome to our REMOTE -GITHUB- DEFAULT cards management application UPDATED-AGAIN-MONITORED UPDATED!'
+  contactDetails:
+    name: 'John Steed - Tech lead'
+    email: 'steed@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

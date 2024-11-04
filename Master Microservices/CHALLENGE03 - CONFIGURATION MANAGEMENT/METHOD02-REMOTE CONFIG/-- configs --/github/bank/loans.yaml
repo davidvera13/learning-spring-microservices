@@ -1,0 +1,11 @@
+build:
+  version: 0.0.3-loans-GITHUB-REMOTE-UPDATED!
+
+loans:
+  message: 'Welcome to our REMOTE -GITHUB- DEFAULT loans management application UPDATED!'
+  contactDetails:
+    name: 'John Steed - CTO'
+    email: 'john@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

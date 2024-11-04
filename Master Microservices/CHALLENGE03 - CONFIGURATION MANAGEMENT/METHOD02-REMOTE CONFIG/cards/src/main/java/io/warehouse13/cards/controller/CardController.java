@@ -109,16 +109,13 @@ public class CardController {
 	})
 	@PutMapping //("/update")
 	public ResponseEntity<ResponseDto> updateCard(@Valid @RequestBody CardDto cardDto) {
-		boolean isUpdated = cardService.updateCard(cardDto);
-		if(isUpdated) {
-			return ResponseEntity
+		return cardService.updateCard(cardDto) ?
+				ResponseEntity
 					.status(HttpStatus.OK)
-					.body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200));
-		}else{
-			return ResponseEntity
+					.body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200)) :
+				ResponseEntity
 					.status(HttpStatus.EXPECTATION_FAILED)
 					.body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_UPDATE));
-		}
 	}
 
 
@@ -147,16 +144,12 @@ public class CardController {
 	@DeleteMapping //("/delete")
 	public ResponseEntity<ResponseDto> deleteCard(
 			@RequestParam @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits") String mobileNumber) {
-		boolean isDeleted = cardService.deleteCard(mobileNumber);
-		if(isDeleted) {
-			return ResponseEntity
+		return cardService.deleteCard(mobileNumber) ?
+				ResponseEntity
 					.status(HttpStatus.OK)
-					.body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200));
-		}
-		else{
-			return ResponseEntity
+					.body(new ResponseDto(CardsConstants.STATUS_200, CardsConstants.MESSAGE_200)) :
+				ResponseEntity
 					.status(HttpStatus.EXPECTATION_FAILED)
 					.body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_DELETE));
-		}
 	}
 }
