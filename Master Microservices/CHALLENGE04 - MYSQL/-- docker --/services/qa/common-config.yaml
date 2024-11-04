@@ -1,0 +1,25 @@
+services:
+  # rabbitMQ needs networks information
+  network-deploy-service:
+    networks:
+      - bankAppNetwork
+
+  # webservices need memory information & rabbitmq
+  microservice-base-config:
+    extends:
+      service: 'network-deploy-service'
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    environment:
+      SPRING_RABBITMQ_HOST: ${RABBITMQ_HOST}
+      SPRING_RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
+      SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
+
+  microservice-configserver-config:
+    extends:
+      service: 'microservice-base-config'
+    environment:
+      SPRING_PROFILES_ACTIVE: 'qa'
+      SPRING_CONFIG_IMPORT: ${SPRING_CONFIG_IMPORT}

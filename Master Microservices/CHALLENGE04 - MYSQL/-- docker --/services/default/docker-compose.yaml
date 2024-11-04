@@ -1,0 +1,99 @@
+name: "microservices"
+
+services:
+  # rabbit mq must be started before webservices & config server
+  rabbitmq:
+    image: rabbitmq:4.0.3-management
+    #image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    extends:
+      file: common-config.yaml
+      service: network-deploy-service
+
+  # depends on rabbitmq
+  configserver:
+    image: 'davidvera/configserver:0.0.4-SNAPSHOT'
+    container_name: 'configserver'
+    ports:
+      - '8071:8071'
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'configserver'
+    healthcheck:
+      # how can i check if server is started ? i use curl http query and check response value
+      test: 'curl --fail --silent http://configserver:8071/actuator/health/readiness | grep UP || exit 1'
+      # we test every 10 seconds, http call timeout is 5seconds, we retry 10 calls and it starts 10 second after app is launched
+      interval: 10s
+      timeout: 5s
+      retries: 25
+      start_period: 10s
+    extends:
+      file: common-config.yaml
+      service: microservice-base-config
+
+  # depends on configserver
+  account-ws:
+    image: 'davidvera/accounts:0.0.4-SNAPSHOT'
+    container_name: 'account-ws'
+    ports:
+      - '8080:8080'
+    # we expect to launch microservices only if configserver is launched successfully
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'accounts'
+    extends:
+      file: common-config.yaml
+      service: microservice-configserver-config
+
+  # depends on configserver
+  cards-ws:
+    image: 'davidvera/cards:0.0.4-SNAPSHOT'
+    container_name: 'cards-ws'
+    ports:
+      - '9000:9000'
+    # we expect to launch microservices only if configserver is launched successfully
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'cards'
+    extends:
+      file: common-config.yaml
+      service: microservice-configserver-config
+
+  # depends on configserver
+  loans-ws:
+    image: 'davidvera/loans:0.0.4-SNAPSHOT'
+    container_name: 'loans-ws'
+    ports:
+      - '8090:8090'
+    # we expect to launch microservices only if configserver is launched successfully
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'loans'
+    extends:
+      file: common-config.yaml
+      service: microservice-configserver-config
+
+networks:
+  bankAppNetwork:
+    driver: 'bridge'
