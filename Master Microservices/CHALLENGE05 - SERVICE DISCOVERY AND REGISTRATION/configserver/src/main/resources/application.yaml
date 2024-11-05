@@ -1,0 +1,47 @@
+server:
+  port: 8071
+spring:
+  application:
+    name: configserver
+  profiles:
+    # we use native profile: we use class path to store properties
+    #active: native
+    active: git
+  cloud:
+    config:
+      fail-fast: true
+      server:
+        git:
+          uri: https://github.com/davidvera13/configuration-repo.git
+          default-label: master
+          clone-on-start: true
+          force-pull: true
+          timeout: 5
+          # if we have subfolders, we can pass the path here
+          search-paths: bank
+        #native:
+          #searchLocations: 'classpath:/config'
+          ## searchLocations: 'file:./-- configs --/bank'
+  rabbitmq:
+    password: guest
+    username: guest
+    host: localhost
+    port: 5672
+
+encrypt:
+  key: 'Td8CJtD9yUC$XZK@_?Lw$]wv(M66(6'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true

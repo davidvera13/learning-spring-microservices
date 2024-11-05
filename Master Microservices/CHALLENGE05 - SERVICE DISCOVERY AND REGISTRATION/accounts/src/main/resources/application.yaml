@@ -1,0 +1,44 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: accounts
+  profiles:
+    active: 'prod'
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_accounts?createDatabaseIfNotExist=true&useSSL=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    import: 'optional:configserver:http://localhost:8071'
+  rabbitmq:
+    password: guest
+    username: guest
+    host: localhost
+    port: 5672
+
+# data to read with @Value
+build:
+  version: 0.0.4-accounts
+
+# prefix
+accounts:
+  message: 'Welcome to our localhost DEFAULT accounts management application'
+  contactDetails:
+    name: 'John Steed - Tech lead'
+    email: 'steed@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406
+
+# enabling all endpoints in actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

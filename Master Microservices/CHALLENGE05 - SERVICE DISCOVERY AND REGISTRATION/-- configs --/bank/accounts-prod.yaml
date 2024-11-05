@@ -1,0 +1,11 @@
+build:
+  version: 0.0.3-accounts-PROD-REMOTE
+
+accounts:
+  message: 'Welcome to our REMOTE GITHUB PROD accounts management application'
+  contactDetails:
+    name: 'Fox Mulder - CEO'
+    email: 'fox@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406
