@@ -1,0 +1,31 @@
+services:
+  # rabbitMQ needs networks information
+  network-deploy-service:
+    networks:
+      - bankAppNetwork
+
+  # webservices need memory information & rabbitmq
+  microservice-base-config:
+    extends:
+      service: 'network-deploy-service'
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+    environment:
+      SPRING_RABBITMQ_HOST: ${RABBITMQ_HOST}
+      SPRING_RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
+      SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
+
+  microservice-configserver-config:
+    extends:
+      service: 'microservice-base-config'
+    environment:
+      SPRING_PROFILES_ACTIVE: 'default'
+      SPRING_CONFIG_IMPORT: ${SPRING_CONFIG_IMPORT}
+
+  microservice-eureka-config:
+    extends:
+      service: microservice-configserver-config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eurekaserver:8070/eureka/

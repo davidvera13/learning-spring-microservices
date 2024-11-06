@@ -1,0 +1,74 @@
+server:
+  port: 8090
+
+# eureka configuration as client applicaiton
+eureka:
+  instance:
+    prefer-ip-address: true
+    # to avoid: EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE NOT
+    leaseRenewalIntervalInSeconds: 10  # Default is 30 seconds
+    lease-expiration-duration-in-seconds: 90
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eureka/
+
+spring:
+  application:
+    name: loans
+  profiles:
+    active: 'qa'
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_loans?createDatabaseIfNotExist=true&useSSL=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    import: 'optional:configserver:http://localhost:8071'
+  rabbitmq:
+    password: guest
+    username: guest
+    host: localhost
+    port: 5672
+
+# data to read with @Value
+build:
+  version: 0.0.4-loans
+
+# prefix
+loans:
+  message: 'Welcome to our localhost DEFAULT loans management application'
+  contactDetails:
+    name: 'John Steed - CTO'
+    email: 'john@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406
+
+# enabling all endpoints in actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+endpoints:
+  shutdown:
+    enabled: true
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: "BankApp Loans manager application"
+    version: '0.0.6'

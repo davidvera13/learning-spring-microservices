@@ -1,0 +1,11 @@
+build:
+  version: 0.0.3-loans-PROD-REMOTE
+
+loans:
+  message: 'Welcome to our REMOTE PROD loans management application'
+  contactDetails:
+    name: 'Fox Mulder - CEO'
+    email: 'fox@bank.com'
+  callSupport:
+    -(33) 102030405
+    -(33) 102030406

@@ -1,0 +1,41 @@
+server:
+  port: 8070
+
+# eureka configuration as server
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetchRegistry: false
+    registerWithEureka: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+spring:
+  application:
+    name: eurekaserver
+  profiles:
+    active: 'default'
+  config:
+    import: 'optional:configserver:http://localhost:8071'
+  rabbitmq:
+    password: guest
+    username: guest
+    host: localhost
+    port: 5672
+# enabling all endpoints in actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  # those properties are used for docker to check readiness
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true

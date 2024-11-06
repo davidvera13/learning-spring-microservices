@@ -1,0 +1,206 @@
+name: "microservices"
+
+services:
+  dbAccounts:
+    image: mysql:latest
+    container_name: dbAccounts
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: 'db_accounts'
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'db_accountsUser'
+      MYSQL_PASSWORD: 'db_accountsPass'
+    volumes:
+      - ../db/dbAccounts:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+    networks:
+      - bankAppNetwork
+
+  dbLoans:
+    image: mysql:latest
+    container_name: dbLoans
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_DATABASE: 'db_loans'
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'db_loansUser'
+      MYSQL_PASSWORD: 'db_loansPass'
+    volumes:
+      - ../db/dbLoans:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+    networks:
+      - bankAppNetwork
+
+  dbCards:
+    image: mysql:latest
+    container_name: dbCards
+    ports:
+      - 3309:3306
+    environment:
+      MYSQL_DATABASE: 'db_cards'
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_USER: 'db_cardsUser'
+      MYSQL_PASSWORD: 'db_cardsPass'
+    volumes:
+      - ../db/dbCards:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 10s
+      retries: 10
+      interval: 10s
+      start_period: 10s
+    networks:
+      - bankAppNetwork
+
+  # rabbit mq must be started before webservices & config server
+  rabbitmq:
+    image: rabbitmq:4.0.3-management
+    #image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      RABBITMQ_HOST: ${RABBITMQ_HOST}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    extends:
+      file: common-config.yaml
+      service: network-deploy-service
+
+  # depends on rabbitmq
+  configserver:
+    image: davidvera/configserver:${SERVICE_VERSION}
+    container_name: 'configserver'
+    ports:
+      - '8071:8071'
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'configserver'
+    healthcheck:
+      # how can i check if server is started ? i use curl http query and check response value
+      test: 'curl --fail --silent http://configserver:8071/actuator/health/readiness | grep UP || exit 1'
+      # we test every 10 seconds, http call timeout is 5seconds, we retry 10 calls and it starts 10 second after app is launched
+      interval: 10s
+      timeout: 5s
+      retries: 25
+      start_period: 10s
+    extends:
+      file: common-config.yaml
+      service: microservice-base-config
+
+  # depends on configserver
+  eurekaserver:
+    image: davidvera/eurekaserver:${SERVICE_VERSION}
+    container_name: 'eurekaserver'
+    ports:
+      - '8070:8070'
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'eurekaserver'
+    healthcheck:
+      # how can i check if server is started ? i use curl http query and check response value
+      test: "curl --fail --silent http://eurekaserver:8070/actuator/health/readiness | grep UP || exit 1"
+      # we test every 10 seconds, http call timeout is 5seconds, we retry 10 calls and it starts 10 second after app is launched
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yaml
+      service: microservice-configserver-config
+
+  # depends on configserver
+  account-ws:
+    image: 'davidvera/accounts:${SERVICE_VERSION}'
+    container_name: 'account-ws'
+    ports:
+      - '8080:8080'
+    # we expect to launch microservices only if configserver is launched successfully
+    depends_on:
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      dbAccounts:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'accounts'
+      SPRING_DATASOURCE_USERNAME: 'db_accountsUser'
+      SPRING_DATASOURCE_PASSWORD: 'db_accountsPass'
+      SPRING_DATASOURCE_URL: "jdbc:mysql://dbAccounts:3306/db_accounts"
+    extends:
+      file: common-config.yaml
+      service: microservice-eureka-config
+
+  # depends on configserver
+  cards-ws:
+    image: 'davidvera/cards:${SERVICE_VERSION}'
+    container_name: 'cards-ws'
+    ports:
+      - '9000:9000'
+    # we expect to launch microservices only if configserver is launched successfully
+    depends_on:
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      dbCards:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'cards'
+      SPRING_DATASOURCE_USERNAME: 'db_cardsUser'
+      SPRING_DATASOURCE_PASSWORD: 'db_cardsPass'
+      SPRING_DATASOURCE_URL: "jdbc:mysql://dbCards:3306/db_cards"
+    extends:
+      file: common-config.yaml
+      service: microservice-eureka-config
+
+  # depends on configserver
+  loans-ws:
+    image: 'davidvera/loans:${SERVICE_VERSION}'
+    container_name: 'loans-ws'
+    ports:
+      - '8090:8090'
+    # we expect to launch microservices only if configserver is launched successfully
+    depends_on:
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+      dbCards:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: 'loans'
+      SPRING_DATASOURCE_USERNAME: 'db_loansUser'
+      SPRING_DATASOURCE_PASSWORD: 'db_loansPass'
+      SPRING_DATASOURCE_URL: "jdbc:mysql://dbLoans:3306/db_loans"
+    extends:
+      file: common-config.yaml
+      service: microservice-eureka-config
+
+networks:
+  bankAppNetwork:
+    driver: 'bridge'
