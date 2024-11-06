@@ -1,5 +1,6 @@
 package io.warehouse13.accounts.mapper;
 
+import io.warehouse13.accounts.dto.CustomerDetailsDto;
 import io.warehouse13.accounts.dto.CustomerDto;
 import io.warehouse13.accounts.io.entity.CustomerEntity;
 
@@ -16,5 +17,12 @@ public class CustomerMapper {
 		customer.setEmail(customerDto.getEmail());
 		customer.setMobileNumber(customerDto.getMobileNumber());
 		return customer;
+	}
+
+	public static CustomerDetailsDto mapToCustomerDetailsDto(CustomerEntity customer, CustomerDetailsDto customerDetailsDto) {
+		customerDetailsDto.setName(customer.getName());
+		customerDetailsDto.setEmail(customer.getEmail());
+		customerDetailsDto.setMobileNumber(customer.getMobileNumber());
+		return customerDetailsDto;
 	}
 }
